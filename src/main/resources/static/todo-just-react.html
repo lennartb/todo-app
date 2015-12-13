@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Att göra lista</title>
+</head>
+<body>
+    <!--
+    <script src="https://fb.me/react-0.14.3.js"></script>
+    <script src="https://fb.me/react-dom-0.14.3.js"></script>
+    -->
+        <script src="js/react.js"></script>
+        <script src="js/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <div>
+        <h1>Att göra lista</h1>
+        <div id="container"></div>
+    </div>
+
+<script type="text/babel">
+
+    var todoServiceBase = 'http://localhost:8080/todo';
+
+    // -------------------------------
+    // NewItem
+    // -------------------------------
+    var NewItem = React.createClass({
+        render: function() {
+            return (
+                <tr>
+                    <td>
+                        <p>Ny:</p>
+                    </td>
+                    <td>
+                        <form onSubmit={this.props.onSubmitNewItem}>
+                            <input
+                                type="text"
+                                bsSize="large"
+                                value={this.props.newWhatTodo}
+                                onChange={this.props.onNewTodoChange} />
+                        </form>
+                    </td>
+                </tr>
+            );
+        }
+    });
+
+    // -------------------------------
+    // TodoItem
+    // -------------------------------
+    var TodoItem = React.createClass({
+        render: function() {
+            return (
+                <tr>
+                    <td>
+                        <input
+                            type="checkbox"
+                            bsSize="large"
+                            checked={this.props.item.done}
+                            label={this.props.item.what}
+                            onChange={this.props.onCheckboxChange.bind(null, this.props.item)}/>
+                        </td>
+                    <td>
+                        <p>{this.props.item.what}</p>
+                    </td>
+                </tr>
+            );
+        }
+    });
+
+    // -------------------------------
+    // TodoList
+    // -------------------------------
+    var TodoList = React.createClass({
+        getInitialState: function() {
+            return {
+                todoList: [],
+                newWhatTodo: ''
+            };
+        },
+
+        // Anropas både av React och nedan
+        componentDidMount: function() {
+            $.get(todoServiceBase + '/list', function(result) {
+                var list = result;
+                if (this.isMounted()) {
+                    this.setState({
+                    todoList: list
+                    });
+                }
+            }.bind(this));
+        },
+
+        handleNewTodoChange: function(event) {
+            this.setState({newWhatTodo: event.target.value});
+        },
+
+        handleSubmitNewItem: function(event) {
+            event.preventDefault();
+            $.post(todoServiceBase + '/add', {what: this.state.newWhatTodo});
+            this.componentDidMount();
+            this.setState({newWhatTodo: ''});
+        },
+
+        handleCheckboxChange: function(item) {
+            if (item.done) {
+                return;
+            }
+            $.post(todoServiceBase + '/complete', {id: item.id});
+            this.componentDidMount();
+        },
+
+        render: function() {
+            var rows = [];
+            rows.push(
+                <NewItem key={-1}
+                    newWhatTodo={this.state.newWhatTodo}
+                    onSubmitNewItem={this.handleSubmitNewItem}
+                    onNewTodoChange={this.handleNewTodoChange} />
+            );
+
+            var l = this.state.todoList;
+
+            for (var i = 0; i < l.length; i++) {
+                rows.push(
+                    <TodoItem
+                        key={l[i].id}
+                        item={l[i]}
+                        onCheckboxChange={this.handleCheckboxChange} />
+                );
+            }
+
+            return (
+                <table>
+                    <tbody>
+                        {rows}
+                    </tbody>
+                </table>
+             );
+
+        }
+    });
+
+    // -------------------------------
+    ReactDOM.render(
+        <TodoList />,
+        document.getElementById('container')
+    );
+
+    </script>
+</body>
+</html>

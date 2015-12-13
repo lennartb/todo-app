@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Att göra lista</title>
+
+    <!-- Twitter Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+</head>
+<body>
+    <!-- React -->
+    <!--
+    <script src="https://fb.me/react-0.14.3.js"></script>
+    <script src="https://fb.me/react-dom-0.14.3.js"></script>
+    -->
+    <script src="js/react.js"></script>
+    <script src="js/react-dom.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <!-- Twitter Bootstrap -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <div>&nbsp;</div>
+
+    <div class="container">
+        <div class="header clearfix">
+            <nav>
+                <ul class="nav nav-pills pull-right">
+                    <li role="presentation" class="active"><a href="#">Home</a></li>
+                    <li role="presentation"><a href="#">About</a></li>
+                    <li role="presentation"><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+
+            <h3 class="text-muted">Att göra lista</h3>
+        </div>
+
+        <div>&nbsp;</div>
+
+        <div class="jumbotronx">
+            <div id="reactStuffGoesHere"></div>
+        </div>
+
+        <div>&nbsp;</div>
+
+        <div class="row marketing">
+            <div class="col-lg-6">
+                <h4>Subheading</h4>
+                <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+
+                <h4>Subheading</h4>
+                <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+
+                <h4>Subheading</h4>
+                <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+            </div>
+
+            <div class="col-lg-6">
+                <h4>Subheading</h4>
+                <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+
+                <h4>Subheading</h4>
+                <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+
+                <h4>Subheading</h4>
+                <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>&copy; 2015 Company, Inc.</p>
+        </footer>
+
+    </div>
+
+<script type="text/babel">
+
+    var todoServiceBase = 'http://localhost:8080/todo';
+
+    // -------------------------------
+    // NewItem
+    // -------------------------------
+    var NewItem = React.createClass({
+        render: function() {
+            return (
+                <form onSubmit={this.props.onSubmitNewItem}>
+                    <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Ny sak att göra"
+                        value={this.props.newWhatTodo}
+                        onChange={this.props.onNewTodoChange} />
+                </form>
+            );
+        }
+    });
+
+    // -------------------------------
+    // TodoItem
+    // -------------------------------
+    var TodoItem = React.createClass({
+        render: function() {
+            return (
+                <tr>
+                    <td>
+                        <input
+                            type="checkbox"
+                            checked={this.props.item.done}
+                            label={this.props.item.what}
+                            onChange={this.props.onCheckboxChange.bind(null, this.props.item)}/>
+                        </td>
+                    <td>
+                        <p>{this.props.item.what}</p>
+                    </td>
+                </tr>
+            );
+        }
+    });
+
+    // -------------------------------
+    // TodoList
+    // -------------------------------
+    var TodoList = React.createClass({
+        getInitialState: function() {
+            return {
+                todoList: [],
+                newWhatTodo: ''
+            };
+        },
+
+        // Anropas både av React och nedan
+        componentDidMount: function() {
+            $.get(todoServiceBase + '/list', function(result) {
+                var list = result;
+                if (this.isMounted()) {
+                    this.setState({
+                    todoList: list
+                    });
+                }
+            }.bind(this));
+        },
+
+        handleNewTodoChange: function(event) {
+            this.setState({newWhatTodo: event.target.value});
+        },
+
+        handleSubmitNewItem: function(event) {
+            event.preventDefault();
+            $.post(todoServiceBase + '/add', {what: this.state.newWhatTodo});
+            this.componentDidMount();
+            this.setState({newWhatTodo: ''});
+        },
+
+        handleCheckboxChange: function(item) {
+            // debugger;
+            // alert(item.done + ' ' + item.id);
+            if (item.done) {
+                return;
+            }
+            $.post(todoServiceBase + '/complete', {id: item.id});
+            this.componentDidMount();
+        },
+
+        render: function() {
+            var rows = [];
+
+            var l = this.state.todoList;
+
+            for (var i = 0; i < l.length; i++) {
+                rows.push(
+                    <TodoItem
+                        key={l[i].id}
+                        item={l[i]}
+                        onCheckboxChange={this.handleCheckboxChange} />
+                );
+            }
+
+            return (
+                <div>
+                    <NewItem
+                        newWhatTodo={this.state.newWhatTodo}
+                        onSubmitNewItem={this.handleSubmitNewItem}
+                        onNewTodoChange={this.handleNewTodoChange} />
+
+                    <div>&nbsp;</div>
+
+                    <div className="panel panel-default">
+                        <table className="table table-striped table-hover">
+                            <tbody>
+                                {rows}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            );
+
+        }
+    });
+
+    // -------------------------------
+    ReactDOM.render(
+        <TodoList />,
+        document.getElementById('reactStuffGoesHere')
+    );
+
+    </script>
+</body>
+</html>
