@@ -24,18 +24,13 @@ var NewItem = React.createClass({
 var TodoItem = React.createClass({
   render: function () {
     return (
-        <tr>
-          <td>
-            <input
-                type="checkbox"
-                checked={this.props.item.done}
-                label={this.props.item.what}
-                onChange={this.props.onCheckboxChange.bind(null, this.props.item)}/>
-          </td>
-          <td>
-            <p>{this.props.item.what}</p>
-          </td>
-        </tr>
+        <div class="checkbox">
+          <input
+              type="checkbox"
+              checked={this.props.item.done}
+              onChange={this.props.onCheckboxChange.bind(null, this.props.item)}/>
+          &nbsp;{this.props.item.what}
+        </div>
     );
   }
 });
@@ -107,15 +102,8 @@ var TodoList = React.createClass({
               onSubmitNewItem={this.handleSubmitNewItem}
               onNewTodoChange={this.handleNewTodoChange}/>
 
-          <div>&nbsp;</div>
-
-          <div className="panel panel-default">
-            <table className="table table-striped table-hover">
-              <tbody>
-              {rows}
-              </tbody>
-            </table>
-          </div>
+            <h4 class="text-muted">Kom ihåg...</h4>
+            {rows}
         </div>
     );
 

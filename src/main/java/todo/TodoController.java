@@ -13,6 +13,10 @@ public class TodoController {
   private final Map<Long, TodoItem> todoList = new LinkedHashMap<>();
 
   public TodoController() {
+    insertDummyData();
+  }
+
+  private void insertDummyData() {
     this.add("En enkel REST-tjänst");
     this.add("En tjänst som kan lista att göra punkter");
     this.add("Och som kan lägga till nya punkter");

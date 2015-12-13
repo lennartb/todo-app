@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Att göra lista</title>
+  <title>Att-göra-lista</title>
 
   <!-- Twitter Bootstrap -->
   <link rel="stylesheet" href="/webjars/bootstrap/3.3.6/css/bootstrap.css">
@@ -23,61 +23,46 @@
 <script src="/webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 
-<div>&nbsp;</div>
-
 <div class="container">
-  <div class="header clearfix">
+  <div class="header">
     <nav>
-      <ul class="nav nav-pills pull-right">
-        <li role="presentation" class="active"><a href="#">Home</a></li>
-        <li role="presentation"><a href="#">About</a></li>
-        <li role="presentation"><a href="#">Contact</a></li>
+      <ul class="nav nav-pills">
+        <li role="presentation" class="active"><a href="/todo-react-and-bootstrap.html">Hem</a></li>
+        <li role="presentation"><a href="#" data-toggle="modal" data-target="#about">Om ...</a></li>
       </ul>
     </nav>
 
-    <h3 class="text-muted">Att göra lista</h3>
+    <h3>Att göra</h3>
   </div>
 
-  <div>&nbsp;</div>
-
-  <div class="jumbotronx">
+  <div class="well">
     <div id="reactStuffGoesHere"></div>
   </div>
 
-  <div>&nbsp;</div>
-
-  <div class="row marketing">
-    <div class="col-lg-6">
-      <h4>Subheading</h4>
-      <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-      <h4>Subheading</h4>
-      <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet
-        fermentum.</p>
-
-      <h4>Subheading</h4>
-      <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-    </div>
-
-    <div class="col-lg-6">
-      <h4>Subheading</h4>
-      <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-      <h4>Subheading</h4>
-      <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet
-        fermentum.</p>
-
-      <h4>Subheading</h4>
-      <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-    </div>
-  </div>
 
   <footer class="footer">
-    <p>&copy; 2015 Company, Inc.</p>
+    <em>Powered by Bootstrap</em>
   </footer>
+</div>
 
+<div class="modal fade" id="about" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" id="aboutLabel">Om ...</h4>
+      </div>
+      <div class="modal-body">
+        Det här är en enkel att-göra-lista.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Stäng</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script type="text/babel" src="jsx/todo-react-and-bootstrap.jsx"></script>
+
 </body>
 </html>
