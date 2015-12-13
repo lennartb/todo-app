@@ -6,20 +6,13 @@ var todoServiceBase = 'http://localhost:8080/todo';
 var NewItem = React.createClass({
   render: function () {
     return (
-        <tr>
-          <td>
-            <p>Ny:</p>
-          </td>
-          <td>
-            <form onSubmit={this.props.onSubmitNewItem}>
-              <input
-                  type="text"
-                  placeholder="Ny sak att göra"
-                  value={this.props.newWhatTodo}
-                  onChange={this.props.onNewTodoChange}/>
-            </form>
-          </td>
-        </tr>
+      <form onSubmit={this.props.onSubmitNewItem}>
+        <input
+          type="text"
+          placeholder="Ny sak att göra"
+          value={this.props.newWhatTodo}
+          onChange={this.props.onNewTodoChange}/>
+      </form>
     );
   }
 });
@@ -90,12 +83,6 @@ var TodoList = React.createClass({
 
   render: function () {
     var rows = [];
-    rows.push(
-        <NewItem key={-1}
-                 newWhatTodo={this.state.newWhatTodo}
-                 onSubmitNewItem={this.handleSubmitNewItem}
-                 onNewTodoChange={this.handleNewTodoChange}/>
-    );
 
     var l = this.state.todoList;
 
@@ -109,11 +96,22 @@ var TodoList = React.createClass({
     }
 
     return (
-        <table>
-          <tbody>
-          {rows}
-          </tbody>
-        </table>
+      <div>
+        <NewItem
+          newWhatTodo={this.state.newWhatTodo}
+          onSubmitNewItem={this.handleSubmitNewItem}
+          onNewTodoChange={this.handleNewTodoChange}/>
+
+        <div>&nbsp;</div>
+
+        <div>
+          <table>
+            <tbody>
+              {rows}
+            </tbody>
+          </table>
+        </div>
+      </div>
     );
 
   }
@@ -122,5 +120,5 @@ var TodoList = React.createClass({
 // -------------------------------
 ReactDOM.render(
     <TodoList />,
-    document.getElementById('container')
+    document.getElementById('reactStuffGoesHere')
 );
