@@ -1,4 +1,4 @@
-var todoServiceBase = 'http://localhost:8080/todo';
+var todoServiceBase = '/todo';
 
 // -------------------------------
 // NewItem
