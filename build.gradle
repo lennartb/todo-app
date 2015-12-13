@@ -26,6 +26,10 @@ targetCompatibility = 1.8
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
+    compile 'org.webjars:babel:5.8.29-1'
+    compile 'org.webjars:react:0.14.3'
+    compile 'org.webjars:bootstrap:3.3.6'
+
     testCompile("junit:junit")
 }
 

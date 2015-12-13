@@ -14,7 +14,7 @@ var NewItem = React.createClass({
             <form onSubmit={this.props.onSubmitNewItem}>
               <input
                   type="text"
-                  bsSize="large"
+                  placeholder="Ny sak att göra"
                   value={this.props.newWhatTodo}
                   onChange={this.props.onNewTodoChange}/>
             </form>
@@ -34,7 +34,6 @@ var TodoItem = React.createClass({
           <td>
             <input
                 type="checkbox"
-                bsSize="large"
                 checked={this.props.item.done}
                 label={this.props.item.what}
                 onChange={this.props.onCheckboxChange.bind(null, this.props.item)}/>

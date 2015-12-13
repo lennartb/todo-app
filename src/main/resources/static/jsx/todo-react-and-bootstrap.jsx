@@ -75,8 +75,6 @@ var TodoList = React.createClass({
   },
 
   handleCheckboxChange: function (item) {
-    // debugger;
-    // alert(item.done + ' ' + item.id);
     if (item.done) {
       return;
     }
