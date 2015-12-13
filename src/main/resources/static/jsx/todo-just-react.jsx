@@ -68,8 +68,10 @@ var TodoList = React.createClass({
 
   handleSubmitNewItem: function (event) {
     event.preventDefault();
-    $.post(todoServiceBase + '/add', {what: this.state.newWhatTodo});
-    this.componentDidMount();
+    $.post(
+        todoServiceBase + '/add',
+        {what: this.state.newWhatTodo},
+        this.componentDidMount.bind(this));
     this.setState({newWhatTodo: ''});
   },
 
@@ -77,8 +79,10 @@ var TodoList = React.createClass({
     if (item.done) {
       return;
     }
-    $.post(todoServiceBase + '/complete', {id: item.id});
-    this.componentDidMount();
+    $.post(
+        todoServiceBase + '/complete',
+        {id: item.id},
+        this.componentDidMount.bind(this));
   },
 
   render: function () {
