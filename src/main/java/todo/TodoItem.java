@@ -5,22 +5,12 @@ import org.springframework.data.annotation.Id;
 public class TodoItem {
 
   @Id private String id;
-  private boolean done;
+  private boolean done = false;
   private String what;
-
-  public TodoItem(String id, String what) {
-    this.id = id;
-    this.done = false;
-    this.what = what;
-  }
 
   public TodoItem(String what) {
     this.done = false;
     this.what = what;
-  }
-
-  public TodoItem() {
-    this.done = false;
   }
 
   public String getId() {

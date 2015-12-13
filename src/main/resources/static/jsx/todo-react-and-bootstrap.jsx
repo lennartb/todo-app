@@ -48,8 +48,7 @@ var TodoList = React.createClass({
 
   // Anropas både av React och nedan
   componentDidMount: function () {
-    $.get(todoServiceBase + '/list', function (result) {
-      var list = result;
+    $.get(todoServiceBase + '/list', function (list) {
       if (this.isMounted()) {
         this.setState({
           todoList: list
