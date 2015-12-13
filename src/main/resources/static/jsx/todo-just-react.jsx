@@ -6,13 +6,13 @@ var todoServiceBase = 'http://localhost:8080/todo';
 var NewItem = React.createClass({
   render: function () {
     return (
-      <form onSubmit={this.props.onSubmitNewItem}>
-        <input
-          type="text"
-          placeholder="Ny sak att göra"
-          value={this.props.newWhatTodo}
-          onChange={this.props.onNewTodoChange}/>
-      </form>
+        <form onSubmit={this.props.onSubmitNewItem}>
+          <input
+              type="text"
+              placeholder="Ny sak att göra"
+              value={this.props.newWhatTodo}
+              onChange={this.props.onNewTodoChange}/>
+        </form>
     );
   }
 });
@@ -96,22 +96,22 @@ var TodoList = React.createClass({
     }
 
     return (
-      <div>
-        <NewItem
-          newWhatTodo={this.state.newWhatTodo}
-          onSubmitNewItem={this.handleSubmitNewItem}
-          onNewTodoChange={this.handleNewTodoChange}/>
-
-        <div>&nbsp;</div>
-
         <div>
-          <table>
-            <tbody>
+          <NewItem
+              newWhatTodo={this.state.newWhatTodo}
+              onSubmitNewItem={this.handleSubmitNewItem}
+              onNewTodoChange={this.handleNewTodoChange}/>
+
+          <div>&nbsp;</div>
+
+          <div>
+            <table>
+              <tbody>
               {rows}
-            </tbody>
-          </table>
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
     );
 
   }
