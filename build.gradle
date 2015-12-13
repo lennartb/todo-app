@@ -21,8 +21,6 @@ repositories {
   mavenCentral()
 }
 
-mongodb://heroku_8qljb7g2:1jtvvov8r9or1k79gjpqphf289@ds027495.mongolab.com:27495/heroku_8qljb7g2
-
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
