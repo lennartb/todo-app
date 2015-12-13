@@ -21,6 +21,8 @@ repositories {
   mavenCentral()
 }
 
+mongodb://heroku_8qljb7g2:1jtvvov8r9or1k79gjpqphf289@ds027495.mongolab.com:27495/heroku_8qljb7g2
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
@@ -28,6 +30,8 @@ dependencies {
   compile 'org.webjars:babel:5.8.29-1'
   compile 'org.webjars:react:0.14.3'
   compile 'org.webjars:bootstrap:3.3.6'
+
+  compile("org.springframework.boot:spring-boot-starter-data-mongodb")
 
   // tag::jetty[]
   compile("org.springframework.boot:spring-boot-starter-web") {

@@ -1,17 +1,29 @@
 package todo;
 
-public class TodoItem {
-  private final long id;
-  private boolean done;
-  private final String what;
+import org.springframework.data.annotation.Id;
 
-  public TodoItem(long id, String what) {
+public class TodoItem {
+
+  @Id private String id;
+  private boolean done;
+  private String what;
+
+  public TodoItem(String id, String what) {
     this.id = id;
     this.done = false;
     this.what = what;
   }
 
-  public long getId() {
+  public TodoItem(String what) {
+    this.done = false;
+    this.what = what;
+  }
+
+  public TodoItem() {
+    this.done = false;
+  }
+
+  public String getId() {
     return id;
   }
 
@@ -27,4 +39,12 @@ public class TodoItem {
     this.done = true;
   }
 
+  @Override
+  public String toString() {
+    return "TodoItem{" +
+        "done=" + done +
+        ", id='" + id + '\'' +
+        ", what='" + what + '\'' +
+        '}';
+  }
 }
