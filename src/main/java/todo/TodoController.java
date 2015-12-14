@@ -36,7 +36,9 @@ public class TodoController {
   @RequestMapping(value = "/complete", method = RequestMethod.POST)
   public void complete(@RequestParam("id") String id) {
     TodoItem item = repository.findOne(id);
-    item.complete();
-    repository.save(item);
+    if(item != null) {
+      item.complete();
+      repository.save(item);
+    }
   }
 }
