@@ -25,6 +25,8 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
+  compile 'org.projectlombok:lombok:1.16.6'
+
   compile 'org.webjars:babel:5.8.29-1'
   compile 'org.webjars:react:0.14.3'
   compile 'org.webjars:bootstrap:3.3.6'
