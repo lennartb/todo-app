@@ -17,8 +17,22 @@ public class Application implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-    insertDummyData();
-    printRepositoryContents();
+    if(inDevelopmentMode()) {
+      insertDummyData();
+      printRepositoryContents();
+    }
+  }
+
+  private boolean inDevelopmentMode() {
+    return "true".equals(System.getProperty("development.mode"));
+  }
+
+  private void insertDummyData() {
+    repository.deleteAll();
+    repository.insert(new TodoItem("En enkel REST-tjänst"));
+    repository.insert(new TodoItem("En tjänst som kan lista att göra punkter"));
+    repository.insert(new TodoItem("Och som kan lägga till nya punkter"));
+    repository.insert(new TodoItem("Man ska också kunna tala om att en sak är gjord"));
   }
 
   private void printRepositoryContents() {
@@ -27,16 +41,5 @@ public class Application implements CommandLineRunner {
     for (TodoItem item : repository.findAll()) {
       System.out.println(item);
     }
-  }
-
-  private void insertDummyData() {
-    repository.deleteAll();
-
-    repository.insert(new TodoItem("En enkel REST-tjänst"));
-    repository.insert(new TodoItem("En tjänst som kan lista att göra punkter"));
-    repository.insert(new TodoItem("Och som kan lägga till nya punkter"));
-    repository.insert(new TodoItem("Man ska också kunna tala om att en sak är gjord"));
-    repository.insert(new TodoItem("Handla mjölk"));
-    repository.insert(new TodoItem("Tvätta fönster"));
   }
 }

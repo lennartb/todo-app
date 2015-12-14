@@ -21,6 +21,10 @@ repositories {
   mavenCentral()
 }
 
+bootRun {
+  jvmArgs = ["-Ddevelopment.mode=true"]
+}
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
